@@ -3,23 +3,24 @@
 #Affiliation: Symbio Group, Institute of Enviromental Sciences, Jagiellonian University, Poland
 #Version 1.0
 
-
 import os, argparse, itertools, sys, multiprocessing, csv
 
 
 #parser.add_argument("--blast_evalue", help="setting for e-value cutoff for blast, must be in form 1e-X", type=str, default="1e-10")
-#parser.add_argument("--blast_threads", help="set the number of threads for blast", type=str, default="24")
-#parser = argparse.ArgumentParser(description = 'Blast your contigs against custom database.')
 
-parser = argparse.ArgumentParser(description='nanopore')
-parser.add_argument("-f", "--fasta", help="the path to the fasta file/folder")
-parser.add_argument("-q", "--fastq", help="the path to the fastq file/folder")
-parser.add_argument("-db_nucl", "--database_nucl", help="the path to the nucleotide database")
-parser.add_argument("-db_prot", "--database_prot", type=str, help="the path to the protein database")
-parser.add_argument("-o", "--output_dir", help="output directory name", type=str, default="Blast_cov_nanopore")
-parser.add_argument('-c', '--cores', metavar='Number of Cores', dest='cores', type=int,
-			help='The number of CPU cores the script will use (default = max number of CPUs available)', default=multiprocessing.cpu_count())
-args = parser.parse_args()
+parser = argparse.ArgumentParser(
+			description='This script is intended to produce a table with both contig information (e.g. average coverage, GC content) and the corresponding taxonomy for output contigs from Nanopore assembliers (e.g. Canu, Flye)'	
+)
+parser.add_argument("fasta", metavar='<FASTA>', help="the path to the contig fasta file/folder")
+parser.add_argument("fastq", metavar='<FASTQ>', help="the path to the reads fastq file/folder")
+parser.add_argument("database_nucl", metavar='<nuclotide database>', type=str, help="the path to the nuclotide database")
+parser.add_argument("-db_prot", "--database_prot", metavar='<path to protein database>', type=str, help="the path to the protein database")
+parser.add_argument("-o", "--output_dir", metavar='<output dir>', type=str, help="output directory name (default: Assigned_Taxonomy)", default="Assigned_Taxonomy")
+parser.add_argument('-c', '--cores', metavar='<Number of Cores>', type=int,
+			help='The number of CPU cores the script will use (default: half of cores of the current server)', default=multiprocessing.cpu_count()/2)
+
+args = parser.parse_args(args=None if sys.argv[1:] else ['--help'])
+
 fasta = args.fasta
 fastq = args.fastq
 db_nucl = args.database_nucl
@@ -132,4 +133,4 @@ for row in Table_cov:
     
     
 
-print("Symbio® Na zdrowie! Salud! gānbēi (干杯)!")
+print("Na zdrowie! Salud! 乾杯! gānbēi(干杯^-^)! Saude! Cheers! Skål!")
