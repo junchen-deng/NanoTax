@@ -18,27 +18,28 @@ Nanotax runs in three steps:
 
 ## Usage
 ```
-usage: Nanotax.py [-h] [-f FASTA] [-q FASTQ]
-                             [-db_nucl DATABASE_NUCL] [-db_prot DATABASE_PROT]
-                             [-o OUTPUT_DIR] [-c Number of Cores]
+usage: Nanotax.py [-h] [-db_prot <path to protein database>] [-o <output dir>]
+                  [-c <Number of Cores>]
+                  <FASTA> <FASTQ> <nuclotide database>
 
-nanopore
+This script is intended to produce a table with both contig information (e.g.
+average coverage, GC content) and the corresponding taxonomy for output
+contigs from Nanopore assembliers (e.g. Canu, Flye)
+
+positional arguments:
+  <FASTA>               the path to the contig fasta file/folder
+  <FASTQ>               the path to the reads fastq file/folder
+  <nuclotide database>  the path to the nuclotide database
 
 optional arguments:
   -h, --help            show this help message and exit
-  -f, --fasta
-                        the path to the fasta file/folder
-  -q, --fastq
-                        the path to the fastq file/folder
-  -db_nucl, --database_nucl
-                        the path to the nuclotide database
-  -db_prot, --database_prot
+  -db_prot <path to protein database>, --database_prot <path to protein database>
                         the path to the protein database
-  -o, --output_dir
-                        output directory name
-  -c, --cores
-                        The number of CPU cores the script will use (default =
-                        max number of CPUs available)
+  -o <output dir>, --output_dir <output dir>
+                        output directory name (default: Assigned_Taxonomy)
+  -c <Number of Cores>, --cores <Number of Cores>
+                        The number of CPU cores the script will use (default:
+                        half of cores of the current server)
 ```
 
 ## Additional information
