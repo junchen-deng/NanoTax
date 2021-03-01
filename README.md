@@ -6,8 +6,8 @@ Nanotax is intended to produce a table with both **contig information** and the 
 Nanotax takes three files as input: contigs in FASTA format, nanopore reads in FASTQ format, and customized nucleotide database in FASTA format. if customized protein datase (in FASTA format) was also provided, blastx (**blastx**) and final taxonomy (**Taxonomy**) will be added to the final table.
 
 Nanotax runs in three steps: 
-* Retrieving taxonomy of contigs by blastn (and blastx if protein database was provided)
-* Mapping reads onto contigs and calculating basic contig information
+* Retrieving taxonomy of contigs by blastn (and blastx if protein database is provided)
+* Mapping raw reads onto contigs and calculating basic contig information (GC %, coverage, length)
 * Joining contig information and taxonomy to produce the final table
 
 ## Software requirement
