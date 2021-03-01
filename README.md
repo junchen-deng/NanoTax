@@ -14,7 +14,7 @@ Nanotax runs in three steps:
 * Python 3
 * [NCBI blast v2.11.0+](https://blast.ncbi.nlm.nih.gov/Blast.cgi?PAGE_TYPE=BlastDocs&DOC_TYPE=Download)
 * [Minimap2](https://github.com/lh3/minimap2)
-* [pileup.sh](https://github.com/BioInfoTools/BBMap/blob/master/sh/pileup.sh)
+* BBMap [pileup.sh](https://github.com/BioInfoTools/BBMap/blob/master/sh/pileup.sh)
 
 ## Usage
 ```
