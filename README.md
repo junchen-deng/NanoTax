@@ -1,11 +1,11 @@
 # NanoTax
-Nanotax is intended to produce a table with both **contig information** and the corresponding **taxonomy** for output contigs from Nanopore assembliers (e.g. [Canu](https://github.com/marbl/canu), [Flye](https://github.com/fenderglass/Flye)) 
+NanoTax is intended to produce a table with both **contig information** and the corresponding **taxonomy** for output contigs from Nanopore assembliers (e.g. [Canu](https://github.com/marbl/canu), [Flye](https://github.com/fenderglass/Flye)) 
 
 **contig information** includes contig ID (**#ID**), average coverage (**Avg_fold**), contig length (**Length**) and GC content (**Read_GC**). **taxonomy** includes results from blastn (**blastn**), and/or results from blastx (**blastx**), and/or final taxonomy (**Taxonomy**) based on blastn and blastx. 
 
-Nanotax takes three files as input: contigs in FASTA format, nanopore reads in FASTQ format, and customized nucleotide database in FASTA format. if customized protein datase (in FASTA format) was also provided, blastx (**blastx**) and final taxonomy (**Taxonomy**) will be added to the final table.
+NanoTax takes three files as input: contigs in FASTA format, nanopore reads in FASTQ format, and customized nucleotide database in FASTA format. if customized protein datase (in FASTA format) was also provided, blastx (**blastx**) and final taxonomy (**Taxonomy**) will be added to the final table.
 
-Nanotax runs in three steps: 
+NanoTax runs in three steps: 
 * Retrieving taxonomy of contigs by blastn (and blastx if protein database is provided)
 * Mapping raw reads onto contigs and calculating basic contig information (GC %, coverage, length)
 * Joining contig information and taxonomy to produce the final table
