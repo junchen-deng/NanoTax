@@ -1,4 +1,4 @@
-# Nanotax
+# NanoTax
 Nanotax is intended to produce a table with both **contig information** and the corresponding **taxonomy** for output contigs from Nanopore assembliers (e.g. [Canu](https://github.com/marbl/canu), [Flye](https://github.com/fenderglass/Flye)) 
 
 **contig information** includes contig ID (**#ID**), average coverage (**Avg_fold**), contig length (**Length**) and GC content (**Read_GC**). **taxonomy** includes results from blastn (**blastn**), and/or results from blastx (**blastx**), and/or final taxonomy (**Taxonomy**) based on blastn and blastx. 
@@ -18,7 +18,7 @@ Nanotax runs in three steps:
 
 ## Usage
 ```
-usage: Nanotax.py [-h] [-db_prot <path to protein database>] [-o <output dir>]
+usage: NanoTax.py [-h] [-db_prot <path to protein database>] [-o <output dir>]
                   [-c <Number of Cores>]
                   <FASTA> <FASTQ> <nuclotide database>
 
