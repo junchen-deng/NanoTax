@@ -3,17 +3,19 @@ NanoTax is intended to produce a table with both **contig information** and the 
 
 **contig information** includes contig ID (**#ID**), average coverage (**Avg_fold**), contig length (**Length**) and GC content (**Read_GC**). **taxonomy** includes results from blastn (**blastn**), and/or results from blastx (**blastx**), and/or final taxonomy (**Taxonomy**) based on blastn and blastx. 
 
-NanoTax takes three files as input: contigs in FASTA format, nanopore reads in FASTQ format, and customized nucleotide database in FASTA format. if customized protein datase (in FASTA format) was also provided, blastx (**blastx**) and final taxonomy (**Taxonomy**) will be added to the final table.
+NanoTax takes at least three files as input: contigs in FASTA format, sequencing reads in FASTQ format, and customized nucleotide database in FASTA format. Options "**-ONT_fastq**" and "**-r1 -r2**" allow you to choose nanopore reads and illumina paired-end reads as input. If customized protein datase (in FASTA format) was provided, blastx (**blastx**) and final taxonomy (**Taxonomy**) will be added to the final table.
 
-NanoTax runs in three steps: 
+NanoTax runs in four steps: 
 * Retrieving taxonomy of contigs by blastn (and blastx if protein database is provided)
-* Mapping raw reads onto contigs and calculating basic contig information (GC %, coverage, length)
+* Producing a **TrueContigs.fasta** file that contains contigs with certain hits from blastn and/or blastx 
+* Mapping raw reads onto true contigs and calculating basic contig information (GC %, coverage, length)
 * Joining contig information and taxonomy to produce the final table
 
 ## Software requirement
 * Python 3
 * [NCBI blast v2.11.0+](https://blast.ncbi.nlm.nih.gov/Blast.cgi?PAGE_TYPE=BlastDocs&DOC_TYPE=Download)
 * [Minimap2](https://github.com/lh3/minimap2)
+* [Bowtie2](http://bowtie-bio.sourceforge.net/bowtie2/index.shtml)
 * BBMap [pileup.sh](https://github.com/BioInfoTools/BBMap/blob/master/sh/pileup.sh)
 
 ## Usage
@@ -50,8 +52,7 @@ optional arguments:
 ```
 
 ## Contact information
-[Junchen Deng](https://github.com/junchen-deng) 
-
+[Junchen Deng](https://github.com/junchen-deng)
 **Email**: junchen.deng@doctoral.uj.edu.pl 
 
 ## Upcoming features
