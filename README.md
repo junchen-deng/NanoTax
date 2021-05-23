@@ -52,8 +52,7 @@ optional arguments:
 ```
 
 ## Contact information
-[Junchen Deng](https://github.com/junchen-deng)
-* **Email**: junchen.deng@doctoral.uj.edu.pl 
+[Junchen Deng](https://github.com/junchen-deng) (junchen.deng@doctoral.uj.edu.pl) 
 
 ## Upcoming features
 * checking the required environment before running the script
