@@ -1,5 +1,5 @@
 # NanoTax
-NanoTax is intended to produce a table with both **contig information** and the corresponding **taxonomy** for output contigs from Nanopore assembliers (e.g. [Canu](https://github.com/marbl/canu), [Flye](https://github.com/fenderglass/Flye)) 
+NanoTax is intended to produce a table with both **contig information** and the corresponding **taxonomy** for output contigs from assembliers, such as [Canu](https://github.com/marbl/canu) and [Flye](https://github.com/fenderglass/Flye) for Nanopore long reads, and [Megahit](https://github.com/voutcn/megahit) for illumina short reads. 
 
 **contig information** includes contig ID (**#ID**), average coverage (**Avg_fold**), contig length (**Length**) and GC content (**Read_GC**). **taxonomy** includes results from blastn (**blastn**), and/or results from blastx (**blastx**), and/or final taxonomy (**Taxonomy**) based on blastn and blastx. 
 
@@ -18,22 +18,29 @@ NanoTax runs in three steps:
 
 ## Usage
 ```
-usage: NanoTax.py [-h] [-db_prot <path to protein database>] [-o <output dir>]
-                  [-c <Number of Cores>]
-                  <FASTA> <FASTQ> <nuclotide database>
+usage: NanoTax_v1.2.py [-h] [-ONT_fastq <FASTQ>] [-r1 <FASTQ>] [-r2 <FASTQ>]
+                       [-db_prot <path to protein database>] [-o <output dir>]
+                       [-c <Number of Cores>]
+                       <FASTA> <nuclotide database>
 
 This script is intended to produce a table with both contig information (e.g.
 average coverage, GC content) and the corresponding taxonomy for output
-contigs from Nanopore assembliers (e.g. Canu, Flye)
+contigs from long-reads and short-reads assemblers (e.g. Canu, Flye for
+Nanopore, Megahit for illumina)
 
 positional arguments:
   <FASTA>               the path to the contig fasta file/folder
-  <FASTQ>               the path to the reads fastq file/folder
   <nuclotide database>  the path to the nuclotide database
 
 optional arguments:
   -h, --help            show this help message and exit
-  -db_prot <path to protein database>, --database_prot <path to protein database>
+  -ONT_fastq <FASTQ>, --ONT_fastq <FASTQ>
+                        the path to the Nanopore reads fastq file/folder
+  -r1 <FASTQ>, --r1 <FASTQ>
+                        the path to the pair-end reads file/folder
+  -r2 <FASTQ>, --r2 <FASTQ>
+                        the path to the pair-end reads file/folder
+  -db_prot <path to protein database>, --db_prot <path to protein database>
                         the path to the protein database
   -o <output dir>, --output_dir <output dir>
                         output directory name (default: Assigned_Taxonomy)
@@ -42,8 +49,9 @@ optional arguments:
                         half of cores of the current server)
 ```
 
-## Additional information
-This script was developed by [Diego Castillo Franco](https://github.com/diecasfranco) and [Junchen Deng](https://github.com/junchen-deng) in Feburary 2021. 
+## Contact information
+[Junchen Deng](https://github.com/junchen-deng) 
+**Email**: junchen.deng@doctoral.uj.edu.pl 
 
 ## Upcoming features
-* Allowing analysis of short reads, i.e. illumina 
+* checking the required environment before running the script
