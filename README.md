@@ -51,6 +51,7 @@ optional arguments:
 
 ## Contact information
 [Junchen Deng](https://github.com/junchen-deng) 
+
 **Email**: junchen.deng@doctoral.uj.edu.pl 
 
 ## Upcoming features
