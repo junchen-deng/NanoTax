@@ -52,6 +52,7 @@ optional arguments:
 ```
 
 ## Contact information
+[Diego Franco](https://github.com/diecasfranco) (diego.franco@uj.edu.pl)
 [Junchen Deng](https://github.com/junchen-deng) (junchen.deng@doctoral.uj.edu.pl) 
 
 ## Upcoming features
