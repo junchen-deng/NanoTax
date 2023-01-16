@@ -20,7 +20,8 @@ NanoTax runs in four steps:
 * [Diamond] (https://github.com/bbuchfink/diamond)
 
 ## Usage
-```usage: NanoTax_v2.1.py [-h] [-db_2 <.FASTA>] [-bt <blast/diamond>] [-blastx_task <str>] [-blastn_task <str>] [-diamond_sen <str>] [-BAM] [-SAM] [-cov <from_pileup.sh>] [-bnf <outfmt6>] [-bxf <outfmt6>]
+```
+usage: NanoTax_v2.1.py [-h] [-db_2 <.FASTA>] [-bt <blast/diamond>] [-blastx_task <str>] [-blastn_task <str>] [-diamond_sen <str>] [-BAM] [-SAM] [-cov <from_pileup.sh>] [-bnf <outfmt6>] [-bxf <outfmt6>]
                        [--truecontigs] [-ONT_fastq <FASTQ>] [-r1 <FASTQ>] [-r2 <FASTQ>] [-o] [-prefix] [-c]
                        <contigs> <database.FASTA> <database type>
 
