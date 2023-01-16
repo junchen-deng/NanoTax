@@ -20,36 +20,50 @@ NanoTax runs in four steps:
 * [Diamond] (https://github.com/bbuchfink/diamond)
 
 ## Usage
-```
-usage: NanoTax_v1.2.py [-h] [-ONT_fastq <FASTQ>] [-r1 <FASTQ>] [-r2 <FASTQ>]
-                       [-db_prot <path to protein database>] [-o <output dir>]
-                       [-c <Number of Cores>]
-                       <FASTA> <nuclotide database>
+```usage: NanoTax_v2.1.py [-h] [-db_2 <.FASTA>] [-bt <blast/diamond>] [-blastx_task <str>] [-blastn_task <str>] [-diamond_sen <str>] [-BAM] [-SAM] [-cov <from_pileup.sh>] [-bnf <outfmt6>] [-bxf <outfmt6>]
+                       [--truecontigs] [-ONT_fastq <FASTQ>] [-r1 <FASTQ>] [-r2 <FASTQ>] [-o] [-prefix] [-c]
+                       <contigs> <database.FASTA> <database type>
 
-This script is intended to produce a table with both contig information (e.g.
-average coverage, GC content) and the corresponding taxonomy for output
-contigs from long-reads and short-reads assemblers (e.g. Canu, Flye for
-Nanopore, Megahit for illumina)
+This script is intended to produce a table with both contig information (e.g. average coverage, GC content) and the corresponding taxonomy for output contigs from long-reads and short-reads assemblers
+(e.g. Canu, Flye for Nanopore, Megahit for illumina)
 
 positional arguments:
-  <FASTA>               the path to the contig fasta file/folder
-  <nuclotide database>  the path to the nuclotide database
+  <contigs>             the path to the contig fasta file/folder
+  <database.FASTA>      the path to the database
+  <database type>       database type (option: 'protein' 'dna')
 
 optional arguments:
   -h, --help            show this help message and exit
+  -db_2 <.FASTA>, --database_2 <.FASTA>
+                        the path to the 2nd database. The db_type of the 2nd database has to be different from the 1st database
+  -bt <blast/diamond>, --blast_tool <blast/diamond>
+                        the type of tools for blast (default: blast) (option: 'blast', 'diamond')
+  -blastx_task <str>, --blastx_task <str>
+                        the task type of blastx (option: 'blastx' 'blastx-fast') (default: blastx)
+  -blastn_task <str>, --blastn_task <str>
+                        the task type of blastn (option: 'blastn' 'megablast') (default: megablast)
+  -diamond_sen <str>, --diamond_sensitivity <str>
+                        the sensitivity of diamond (option: 'fast' 'mid-sensitive' 'sensitive' 'more-sensitive' 'very-sensitive' 'ultra-sensitive') (default: sensitive)
+  -BAM , --BAM          path to BAM file; enable skipping the mapping step
+  -SAM , --SAM          path to SAM file; enable skipping the mapping step
+  -cov <from_pileup.sh>, --coverage <from_pileup.sh>
+                        path to coverage file from pileup.sh; enable to skip both mapping and pileup.sh
+  -bnf <outfmt6>, --blastn_file <outfmt6>
+                        path to blastn output; enable skipping the blastn step
+  -bxf <outfmt6>, --blastx_file <outfmt6>
+                        path to blastx output; enable skipping the blastx step
+  --truecontigs         enable analysing only contigs with blast hits
   -ONT_fastq <FASTQ>, --ONT_fastq <FASTQ>
                         the path to the Nanopore reads fastq file/folder
   -r1 <FASTQ>, --r1 <FASTQ>
-                        the path to the pair-end reads file/folder
+                        the path to the r1 pair-end reads file/folder
   -r2 <FASTQ>, --r2 <FASTQ>
-                        the path to the pair-end reads file/folder
-  -db_prot <path to protein database>, --db_prot <path to protein database>
-                        the path to the protein database
-  -o <output dir>, --output_dir <output dir>
-                        output directory name (default: Assigned_Taxonomy)
-  -c <Number of Cores>, --cores <Number of Cores>
-                        The number of CPU cores the script will use (default:
-                        half of cores of the current server)
+                        the path to the r2 pair-end reads file/folder
+  -o , --output_dir     output directory name (default: Assigned_Taxonomy)
+  -prefix , --prefix    prefix of each output file name (default: output)
+  -c , --cores          The number of CPU cores the script will use (default: 8)
+
+
 ```
 
 ## Contact information
