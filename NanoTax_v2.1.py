@@ -24,7 +24,7 @@ parser.add_argument("-blastn_task", "--blastn_task", metavar='<str>', type=str, 
 parser.add_argument("-diamond_sen", "--diamond_sensitivity", metavar='<str>', type=str, help="the sensitivity of diamond (option: 'fast' 'mid-sensitive' 'sensitive' 'more-sensitive' 'very-sensitive' 'ultra-sensitive') (default: %(default)s)", default="sensitive")
 parser.add_argument('-BAM', '--BAM', metavar='', help="path to BAM file; enable skipping the mapping step")
 parser.add_argument('-SAM', '--SAM', metavar='', help="path to SAM file; enable skipping the mapping step")
-parser.add_argument('-cov', '--coverage', metavar='<from_pileup.sh>', help="path to coverage fiel from pileup.sh; enable to skip both mapping and pileup.sh")
+parser.add_argument('-cov', '--coverage', metavar='<from_pileup.sh>', help="path to coverage file from pileup.sh; enable to skip both mapping and pileup.sh")
 parser.add_argument('-bnf', '--blastn_file', metavar='<outfmt6>', help="path to blastn output; enable skipping the blastn step")
 parser.add_argument('-bxf', '--blastx_file', metavar='<outfmt6>', help="path to blastx output; enable skipping the blastx step")
 parser.add_argument('--truecontigs', action='store_true', help="enable analysing only contigs with blast hits")
