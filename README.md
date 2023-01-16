@@ -17,6 +17,7 @@ NanoTax runs in four steps:
 * [Minimap2](https://github.com/lh3/minimap2)
 * [Bowtie2](http://bowtie-bio.sourceforge.net/bowtie2/index.shtml)
 * BBMap [pileup.sh](https://github.com/BioInfoTools/BBMap/blob/master/sh/pileup.sh)
+* [Diamond] (https://github.com/bbuchfink/diamond)
 
 ## Usage
 ```
