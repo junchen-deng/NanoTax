@@ -1,15 +1,19 @@
 # NanoTax
 NanoTax is intended to produce a table with both **contig information** and the corresponding **taxonomy** for output contigs from assembliers, such as [Canu](https://github.com/marbl/canu) and [Flye](https://github.com/fenderglass/Flye) for Nanopore long reads, and [Megahit](https://github.com/voutcn/megahit) for illumina short reads. 
 
-**contig information** includes contig ID (**#ID**), average coverage (**Avg_fold**), contig length (**Length**) and GC content (**Read_GC**). **taxonomy** includes results from blastn (**blastn**), and/or results from blastx (**blastx**), and/or final taxonomy (**Taxonomy**) based on blastn and blastx. 
+**contig information** includes contig ID (**#ID**), average coverage (**Avg_fold**), contig length (**Length**) and GC content (**Read_GC**). **taxonomy** includes results from blastn (**blastn**), and/or results from blastx (**blastx**), and final taxonomy (**Taxonomy**) based on blastn and blastx. 
 
-NanoTax takes at least three files as input: contigs in FASTA format, sequencing reads in FASTQ format, and customized nucleotide database in FASTA format. Options "**-ONT_fastq**" and "**-r1 -r2**" allow you to choose nanopore reads and illumina paired-end reads as input. If customized protein datase (in FASTA format) was provided, blastx (**blastx**) and final taxonomy (**Taxonomy**) will be added to the final table.
+NanoTax takes at least one files as input: contigs in FASTA format. Options "**-ONT_fastq**" and "**-r1 -r2**" allow you to choose nanopore reads and illumina paired-end reads as input. 
 
-NanoTax runs in four steps: 
-* Retrieving taxonomy of contigs by blastn (and blastx if protein database is provided)
-* Producing a **TrueContigs.fasta** file that contains contigs with certain hits from blastn and/or blastx 
-* Mapping raw reads onto true contigs and calculating basic contig information (GC %, coverage, length)
-* Joining contig information and taxonomy to produce the final table
+In general, NanoTax runs in four steps: 
+* Retrieving taxonomy of input contigs by blastn or blastx/diamond 
+* Mapping raw reads, either nanopore with **minimap2** or illumina with **bowtie2**, onto contigs 
+* Calculating basic contig information (GC %, coverage, length) with **pileup.sh** using **bam** output from mapper
+* Joining contig information and taxonomy to produce the final taxonomy table
+
+However, you could skip some of the steps by providing blastn/blastx/diamond output (options **-bnf -bxf**), BAM/SAM file (option **-BAM -SAM**), or coverage file (option **-cov**). 
+
+If you are not interested in contigs without any blast hits at all, you could set **--truecontigs** and the script will filter out all contigs with no blast hits. In this way, the script can run faster as mapping will only work on contigs after filtering. These removed contigs will not appear in the final taxonomy table.     
 
 ## Software requirement
 * Python 3
@@ -17,38 +21,50 @@ NanoTax runs in four steps:
 * [Minimap2](https://github.com/lh3/minimap2)
 * [Bowtie2](http://bowtie-bio.sourceforge.net/bowtie2/index.shtml)
 * BBMap [pileup.sh](https://github.com/BioInfoTools/BBMap/blob/master/sh/pileup.sh)
-* [Diamond](https://github.com/bbuchfink/diamond)
+* [Diamond](https://github.com/bbuchfink/diamond) (optional; required if "**-bt diamond**" is set)
 
-## Usage
+## Help message
 ```
-usage: NanoTax_v2.1.py [-h] [-db_2 <.FASTA>] [-bt <blast/diamond>] [-blastx_task <str>] [-blastn_task <str>] [-diamond_sen <str>] [-BAM] [-SAM] [-cov <from_pileup.sh>] [-bnf <outfmt6>] [-bxf <outfmt6>]
-                       [--truecontigs] [-ONT_fastq <FASTQ>] [-r1 <FASTQ>] [-r2 <FASTQ>] [-o] [-prefix] [-c]
-                       <contigs> <database.FASTA> <database type>
+usage: NanoTax_v2.2.py [-h] [-db_nucl] [-db_prot] [-bt <blast/diamond>]
+                       [-blastx_task <str>] [-blastn_task <str>]
+                       [-diamond_sen <str>] [-BAM] [-SAM]
+                       [-cov <from_pileup.sh>] [-bnf <outfmt6>]
+                       [-bxf <outfmt6>] [--truecontigs] [-ONT_fastq <FASTQ>]
+                       [-r1 <FASTQ>] [-r2 <FASTQ>] [-o] [-prefix] [-c]
+                       <contigs>
 
-This script is intended to produce a table with both contig information (e.g. average coverage, GC content) and the corresponding taxonomy for output contigs from long-reads and short-reads assemblers
-(e.g. Canu, Flye for Nanopore, Megahit for illumina)
+This script is intended to produce a table with both contig information (e.g.
+average coverage, GC content) and the corresponding taxonomy for output
+contigs from long-reads and short-reads assemblers (e.g. Canu, Flye for
+Nanopore, Megahit for illumina)
 
 positional arguments:
   <contigs>             the path to the contig fasta file/folder
-  <database.FASTA>      the path to the database
-  <database type>       database type (option: 'protein' 'dna')
 
 optional arguments:
   -h, --help            show this help message and exit
-  -db_2 <.FASTA>, --database_2 <.FASTA>
-                        the path to the 2nd database. The db_type of the 2nd database has to be different from the 1st database
+  -db_nucl , --nucleotide_database 
+                        the path to nucleotide database
+  -db_prot , --protein_database 
+                        the path to protein database
   -bt <blast/diamond>, --blast_tool <blast/diamond>
-                        the type of tools for blast (default: blast) (option: 'blast', 'diamond')
+                        the type of tools for blast (default: blast) (option:
+                        'blast', 'diamond')
   -blastx_task <str>, --blastx_task <str>
-                        the task type of blastx (option: 'blastx' 'blastx-fast') (default: blastx)
+                        the task type of blastx (option: 'blastx' 'blastx-
+                        fast') (default: blastx)
   -blastn_task <str>, --blastn_task <str>
-                        the task type of blastn (option: 'blastn' 'megablast') (default: megablast)
+                        the task type of blastn (option: 'blastn' 'megablast')
+                        (default: megablast)
   -diamond_sen <str>, --diamond_sensitivity <str>
-                        the sensitivity of diamond (option: 'fast' 'mid-sensitive' 'sensitive' 'more-sensitive' 'very-sensitive' 'ultra-sensitive') (default: sensitive)
+                        the sensitivity of diamond (option: 'fast' 'mid-
+                        sensitive' 'sensitive' 'more-sensitive' 'very-
+                        sensitive' 'ultra-sensitive') (default: sensitive)
   -BAM , --BAM          path to BAM file; enable skipping the mapping step
   -SAM , --SAM          path to SAM file; enable skipping the mapping step
   -cov <from_pileup.sh>, --coverage <from_pileup.sh>
-                        path to coverage file from pileup.sh; enable to skip both mapping and pileup.sh
+                        path to coverage fiel from pileup.sh; enable to skip
+                        both mapping and pileup.sh
   -bnf <outfmt6>, --blastn_file <outfmt6>
                         path to blastn output; enable skipping the blastn step
   -bxf <outfmt6>, --blastx_file <outfmt6>
