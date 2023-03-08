@@ -84,8 +84,10 @@ optional arguments:
 ```
 
 ## Contact information
-[Diego Franco](https://github.com/diecasfranco) (diego.franco@uj.edu.pl)
 [Junchen Deng](https://github.com/junchen-deng) (junchen.deng@doctoral.uj.edu.pl) 
+[Diego Franco](https://github.com/diecasfranco) (diego.franco@uj.edu.pl)
 
 ## Upcoming features
 * checking the required environment before running the script
+* fix issues that cannot create nexted repository
+* fix issues that '--truecontigs' doesn't work if coverage file is provided  
