@@ -89,5 +89,5 @@ optional arguments:
 
 ## Upcoming features
 * checking the required environment before running the script
-* fix issues that cannot create nexted repository
+* fix issues that cannot create nested repository
 * fix issues that '--truecontigs' doesn't work if coverage file is provided  
