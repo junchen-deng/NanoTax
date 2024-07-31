@@ -30,7 +30,8 @@ usage: NanoTax_v2.2.py [-h] [-db_nucl] [-db_prot] [-bt <blast/diamond>]
                        [-diamond_sen <str>] [-BAM] [-SAM]
                        [-cov <from_pileup.sh>] [-bnf <outfmt6>]
                        [-bxf <outfmt6>] [--truecontigs] [-ONT_fastq <FASTQ>]
-                       [-r1 <FASTQ>] [-r2 <FASTQ>] [-o] [-prefix] [-c]
+                       [-PB_fastq <FASTQ>] [-r1 <FASTQ>] [-r2 <FASTQ>] [-o]
+                       [-prefix] [-c]
                        <contigs>
 
 This script is intended to produce a table with both contig information (e.g.
@@ -72,14 +73,16 @@ optional arguments:
   --truecontigs         enable analysing only contigs with blast hits
   -ONT_fastq <FASTQ>, --ONT_fastq <FASTQ>
                         the path to the Nanopore reads fastq file/folder
+  -PB_fastq <FASTQ>, --PB_fastq <FASTQ>
+                        the path to the PacBio reads fastq file/folder
   -r1 <FASTQ>, --r1 <FASTQ>
                         the path to the r1 pair-end reads file/folder
   -r2 <FASTQ>, --r2 <FASTQ>
                         the path to the r2 pair-end reads file/folder
   -o , --output_dir     output directory name (default: Assigned_Taxonomy)
   -prefix , --prefix    prefix of each output file name (default: output)
-  -c , --cores          The number of CPU cores the script will use (default: 8)
-
+  -c , --cores          The number of CPU cores the script will use (default:
+                        8)
 
 ```
 
