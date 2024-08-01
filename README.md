@@ -1,19 +1,19 @@
 # NanoTax
-NanoTax is intended to produce a table with both **contig information** and the corresponding **taxonomy** for output contigs from assembliers, such as [Canu](https://github.com/marbl/canu) and [Flye](https://github.com/fenderglass/Flye) for Nanopore long reads, and [Megahit](https://github.com/voutcn/megahit) for illumina short reads. 
+NanoTax is intended to produce a table with both **contig information** and the corresponding **taxonomy** for output contigs from assembliers, such as [Canu](https://github.com/marbl/canu) and [Flye](https://github.com/fenderglass/Flye) for Nanopore and PacBio long reads, and [SPAdes](https://github.com/ablab/spades) and [Megahit](https://github.com/voutcn/megahit) for illumina short reads. 
 
 **contig information** includes contig ID (**#ID**), average coverage (**Avg_fold**), contig length (**Length**) and GC content (**Read_GC**). **taxonomy** includes results from blastn (**blastn**), and/or results from blastx (**blastx**), and final taxonomy (**Taxonomy**) based on blastn and blastx. 
 
-NanoTax takes at least one files as input: contigs in FASTA format. Options "**-ONT_fastq**" and "**-r1 -r2**" allow you to choose nanopore reads and illumina paired-end reads as input. 
+NanoTax takes at least one file as input: contigs in FASTA format. Options "**-ONT_fastq**", "**-PB_fastq**" and "**-r1 -r2**" allow you to choose nanopore/PacBio long reads and illumina paired-end reads as input. 
 
 In general, NanoTax runs in four steps: 
 * Retrieving taxonomy of input contigs by blastn or blastx/diamond 
-* Mapping raw reads, either nanopore with **minimap2** or illumina with **bowtie2**, onto contigs 
-* Calculating basic contig information (GC %, coverage, length) with **pileup.sh** using **bam** output from mapper
+* Mapping raw reads, either long reads with **minimap2** or illumina with **bowtie2**, onto contigs 
+* Calculating basic contig information (GC %, coverage, length) with **pileup.sh** using **bam** output from the mapper
 * Joining contig information and taxonomy to produce the final taxonomy table
 
 However, you could skip some of the steps by providing blastn/blastx/diamond output (options **-bnf -bxf**), BAM/SAM file (option **-BAM -SAM**), or coverage file (option **-cov**). 
 
-If you are not interested in contigs without any blast hits at all, you could set **--truecontigs** and the script will filter out all contigs with no blast hits. In this way, the script can run faster as mapping will only work on contigs after filtering. These removed contigs will not appear in the final taxonomy table.     
+If you are not interested in contigs without any blast hits, you could set **--truecontigs** and the script will keep only contigs with blast hits (output as **prefix.TrueContigs.fasta**). This way, the script will run faster as the mapping only works on filtered contigs. These removed contigs will not appear in the final taxonomy table.     
 
 ## Software requirement
 * Python 3
@@ -22,6 +22,11 @@ If you are not interested in contigs without any blast hits at all, you could se
 * [Bowtie2](http://bowtie-bio.sourceforge.net/bowtie2/index.shtml)
 * BBMap [pileup.sh](https://github.com/BioInfoTools/BBMap/blob/master/sh/pileup.sh)
 * [Diamond](https://github.com/bbuchfink/diamond) (optional; required if "**-bt diamond**" is set)
+
+## database requrement
+* You need to provide a custom database for blastn/blastx/diamond to function
+* Only one type of database (DNA or Protein) is enough for the script to run
+* Providing both databases will allow the script to summarize results from different databases in the final taxonomy table.   
 
 ## Help message
 ```
@@ -85,6 +90,8 @@ optional arguments:
                         8)
 
 ```
+## Examples: 
+NanoTax_v2.2.py -db_prot proteins_references_wo_host_2.fasta -db_nucl F5_refs_bacteria.fasta -bt diamond -PB_fastq hifi_len500.fastq.gz --truecontigs -prefix STEMIN -o taxonomy -c 16 assembly.fasta
 
 ## Contact information
 [Junchen Deng](https://github.com/junchen-deng) (junchen.deng@doctoral.uj.edu.pl) 
@@ -92,5 +99,5 @@ optional arguments:
 
 ## Upcoming features
 * checking the required environment before running the script
-* fix issues that cannot create nested repository
+* fix issues that cannot create the nested repository
 * fix issues that '--truecontigs' doesn't work if coverage file is provided  
